@@ -1,5 +1,5 @@
 ---
-title: "nodejs 编程项目环境如何配置？"
+title: "笔记 Node.js 编程项目环境如何配置"
 published: 2025-02-13
 tags: [web]
 category: 笔记
