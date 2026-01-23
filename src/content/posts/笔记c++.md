@@ -1,7 +1,7 @@
 ---
 title: "c++大复习"
 published: 2024-12-19
-tags: [c]
+tags: [c++]
 category: 笔记
 draft: false
 ---

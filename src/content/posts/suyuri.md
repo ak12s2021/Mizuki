@@ -1,9 +1,9 @@
 ---
 title: ありがとう酸欠少女
 published: 2024-09-29
-tags: []
+tags: [歌手]
 pinned: false
-category: 杂谈
+category: 随笔
 draft: false
 image: https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/20260107133707943.jpg
 ---

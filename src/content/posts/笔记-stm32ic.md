@@ -1,8 +1,8 @@
 ---
 title: "STM32-i^2C"
 published: 2024-12-19
-tags: []
-category: "嵌入式STM32"
+tags: [嵌入式STM32]
+category: 笔记
 draft: false
 ---
 <h1>i^2C</h1>

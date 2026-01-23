@@ -1,8 +1,8 @@
 ---
 title: "INTP恋爱指北"
 published: 2024-12-19
-tags: [intp love]
-category: love
+tags: [love]
+category: 笔记
 draft: false
 ---
 <!-- wp:paragraph -->

@@ -1,7 +1,7 @@
 ---
 title: "云解析 DNS 与传统 DNS 的比较"
 published: 2024-10-28
-tags: [DNS]
+tags: [计算机网络]
 category: 笔记
 draft: false
 ---

@@ -3,8 +3,8 @@ title: 《吻》随笔
 published: 2024-09-11
 pinned: false
 description: 随笔写的杂谈
-tags: [阅读]
-category: 随笔
+tags: [书]
+category: 阅读
 author: ttk
 ---
 

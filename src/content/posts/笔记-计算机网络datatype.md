@@ -1,8 +1,8 @@
 ---
 title: "计算机网络 数据单位"
 published: 2024-12-19
-tags: []
-category: "计算机网络笔记"
+tags: [计算机网络]
+category: 笔记
 draft: false
 ---
 <h1>数据单位</h1>
