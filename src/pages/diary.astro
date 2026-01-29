@@ -39,6 +39,63 @@ function formatTime(dateString: string): string {
 	const days = Math.floor(diffInMinutes / 1440);
 	return `${days}${i18n(I18nKey.diaryDaysAgo)}`;
 }
+
+// 处理日记内容：识别URL、iframe、图片等
+function processDiaryContent(content: string): {
+	text: string;
+	images: string[];
+	iframes: string[];
+} {
+	const images: string[] = [];
+	const iframes: string[] = [];
+	let processedText = content;
+
+	// 先提取 iframe 标签
+	const iframeRegex = /<iframe[^>]*>.*?<\/iframe>/gi;
+	const iframeMatches = processedText.match(iframeRegex);
+	if (iframeMatches) {
+		iframeMatches.forEach((iframe) => {
+			iframes.push(iframe);
+			processedText = processedText.replace(iframe, `\n__IFRAME_PLACEHOLDER_${iframes.length - 1}__\n`);
+		});
+	}
+
+	// 提取图片和视频URL（排除已经是iframe中的）
+	const mediaUrlRegex = /(https?:\/\/[^\s<>"']+\.(jpg|jpeg|png|gif|webp|svg|mp4|mov|avi|webm))/gi;
+	const mediaMatches = processedText.match(mediaUrlRegex);
+	if (mediaMatches) {
+		mediaMatches.forEach((url) => {
+			// 排除spotify等嵌入服务的URL
+			if (!url.includes('spotify') && !url.includes('youtube') && !url.includes('bilibili')) {
+				if (!images.includes(url)) {
+					images.push(url);
+					processedText = processedText.replace(url, `\n__IMAGE_PLACEHOLDER_${images.length - 1}__\n`);
+				}
+			}
+		});
+	}
+
+	// 将换行符转换为 <br>（但保留占位符周围的换行）
+	processedText = processedText.replace(/\n/g, '<br>');
+
+	// 将普通URL转换为链接（排除已经是图片/视频的URL和占位符）
+	const urlRegex = /(https?:\/\/[^\s<>"']+)/gi;
+	processedText = processedText.replace(urlRegex, (url) => {
+		// 如果包含占位符标记，跳过
+		if (url.includes('__PLACEHOLDER__')) return url;
+		// 如果是媒体文件URL，跳过（已经单独处理）
+		if (/\.(jpg|jpeg|png|gif|webp|svg|mp4|mov|avi|webm)/i.test(url)) return url;
+		// 排除嵌入服务的URL
+		if (url.includes('spotify') || url.includes('youtube') || url.includes('bilibili')) return url;
+		return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="diary-link text-[var(--primary)] hover:underline break-all">${url}</a>`;
+	});
+
+	return {
+		text: processedText,
+		images,
+		iframes,
+	};
+}
 ---
 
 <MainGridLayout title={i18n(I18nKey.diary)} description="即刻短文">
@@ -68,27 +125,67 @@ function formatTime(dateString: string): string {
 				<!-- 短文列表 -->
 				<div class="moments-timeline">
 					<div class="timeline-list space-y-4">
-					{moments.map((moment, index) => (
+					{moments.map((moment, index) => {
+						const processed = processDiaryContent(moment.content);
+						// 合并配置的图片和从内容中提取的图片
+						const allImages = [...(moment.images || []), ...processed.images];
+						
+						// 处理文本，替换占位符
+						let displayText = processed.text;
+						
+						// 替换 iframe 占位符为空（iframe 会单独渲染）
+						processed.iframes.forEach((iframe, idx) => {
+							displayText = displayText.replace(`<br>__IFRAME_PLACEHOLDER_${idx}__<br>`, '');
+							displayText = displayText.replace(`__IFRAME_PLACEHOLDER_${idx}__`, '');
+						});
+						
+						// 替换图片占位符为空（图片会单独渲染）
+						processed.images.forEach((img, idx) => {
+							displayText = displayText.replace(`<br>__IMAGE_PLACEHOLDER_${idx}__<br>`, '');
+							displayText = displayText.replace(`__IMAGE_PLACEHOLDER_${idx}__`, '');
+						});
+						
+						return (
 						<div class="moment-item card-base-daily p-4 md:p-6 lg:p-8 hover:shadow-lg transition-all">
 								<div class="moment-content">
-									<p class="moment-text text-sm md:text-base lg:text-lg text-90 leading-relaxed mb-3 md:mb-4">{moment.content}</p>
+									<!-- 渲染文本内容（包含换行和链接） -->
+									<div class="moment-text text-sm md:text-base lg:text-lg text-90 leading-relaxed mb-3 md:mb-4" set:html={displayText}></div>
 									
-									{moment.images && moment.images.length > 0 && (
-				<div class="diary-images grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 lg:gap-4 mb-3 md:mb-4">
-					{moment.images.map((image, _index) => (
-					<div class="image-item relative rounded-md overflow-hidden aspect-square cursor-pointer hover:scale-105 transition-transform">
-						<a href="javascript:void(0)" data-src={image} data-fancybox={`gallery-${index}-${_index}`} class="block w-full h-full">
-							<img 
-								src={image} 
-								alt="diary moment image"
-								class="w-full h-full object-cover"
-								loading="lazy"
-							/>
-						</a>
-					</div>
-					))}
-				</div>
-			)}
+									<!-- 渲染 iframe -->
+									{processed.iframes.length > 0 && processed.iframes.map((iframe, iframeIndex) => (
+										<div class="diary-iframe-wrapper mb-3 md:mb-4" set:html={iframe} />
+									))}
+									
+									{/* 渲染图片和视频 */}
+									{allImages.length > 0 && (
+										<div class="diary-images grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 lg:gap-4 mb-3 md:mb-4">
+											{allImages.map((image, _index) => {
+												// 判断是否是视频
+												const isVideo = /\.(mp4|mov|avi|webm)$/i.test(image);
+												return (
+													<div class="image-item relative rounded-md overflow-hidden aspect-square cursor-pointer hover:scale-105 transition-transform">
+														{isVideo ? (
+															<video 
+																src={image} 
+																controls
+																class="w-full h-full object-cover"
+																preload="metadata"
+															/>
+														) : (
+															<a href="javascript:void(0)" data-src={image} data-fancybox={`gallery-${index}-${_index}`} class="block w-full h-full">
+																<img 
+																	src={image} 
+																	alt="diary moment image"
+																	class="w-full h-full object-cover"
+																	loading="lazy"
+																/>
+															</a>
+														)}
+													</div>
+												);
+											})}
+										</div>
+									)}
 								</div>
 								
 								<hr class="moment-divider border-t border-[var(--line-divider)] my-3 md:my-4" />
@@ -103,7 +200,8 @@ function formatTime(dateString: string): string {
 									
 								</div>
 							</div>
-						))}
+						);
+					})}
 					</div>
 				</div>
 
@@ -222,10 +320,39 @@ function formatTime(dateString: string): string {
 			max-width: 500px;
 		}
 		
-		.moment-text {
-			font-size: 1rem;
-			line-height: 1.7;
-		}
+	.moment-text {
+		font-size: 1rem;
+		line-height: 1.8;
+		word-wrap: break-word;
+		word-break: break-word;
+	}
+	
+	.moment-text :global(br) {
+		display: block;
+		margin: 0.5em 0;
+		content: "";
+	}
+	
+	.moment-text :global(.diary-link) {
+		color: var(--primary);
+		text-decoration: underline;
+		word-break: break-all;
+	}
+	
+	.moment-text :global(.diary-link:hover) {
+		opacity: 0.8;
+	}
+	
+	.diary-iframe-wrapper {
+		width: 100%;
+		max-width: 100%;
+		margin: 1rem 0;
+	}
+	
+	.diary-iframe-wrapper :global(iframe) {
+		width: 100%;
+		border-radius: 12px;
+	}
 		
 		.moment-footer {
 			margin-top: 1rem;
