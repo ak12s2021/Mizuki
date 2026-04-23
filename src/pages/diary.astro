@@ -240,33 +240,30 @@ function processDiaryContent(content: string): {
 				</div>
 
 				<script>
-					// 处理加载更多逻辑，兼容 Astro 视图过渡
-					document.addEventListener('astro:page-load', () => {
-						const PAGE_SIZE = 30;
-						let currentPage = 1;
-						
-						const loadMoreBtn = document.getElementById('load-more-btn');
-						const noMoreTips = document.getElementById('no-more-tips');
-						const items = document.querySelectorAll('.moment-item');
-						
-						if (!loadMoreBtn || !noMoreTips) return;
-						
-						loadMoreBtn.addEventListener('click', () => {
-							const start = currentPage * PAGE_SIZE;
-							const end = start + PAGE_SIZE;
+					// 使用事件委托处理加载更多逻辑，兼容 Swup 无刷新跳转
+					document.addEventListener('click', (e) => {
+						const target = e.target as HTMLElement;
+						if (target && (target.id === 'load-more-btn' || target.closest('#load-more-btn'))) {
+							const PAGE_SIZE = 30;
+							const loadMoreBtn = document.getElementById('load-more-btn');
+							const noMoreTips = document.getElementById('no-more-tips');
 							
-							for (let i = start; i < end && i < items.length; i++) {
-								(items[i] as HTMLElement).style.display = '';
+							// 找到所有被隐藏的日记项
+							const hiddenItems = Array.from(document.querySelectorAll('.moment-item')).filter(
+								item => (item as HTMLElement).style.display === 'none'
+							);
+							
+							// 显示接下来的 PAGE_SIZE 项
+							for (let i = 0; i < PAGE_SIZE && i < hiddenItems.length; i++) {
+								(hiddenItems[i] as HTMLElement).style.display = '';
 							}
 							
-							currentPage++;
-							
-							// 如果全部加载完毕，隐藏按钮，显示底部提示
-							if (currentPage * PAGE_SIZE >= items.length) {
-								loadMoreBtn.classList.add('hidden');
-								noMoreTips.classList.remove('hidden');
+							// 如果没有更多隐藏项了，隐藏按钮并显示提示
+							if (hiddenItems.length <= PAGE_SIZE) {
+								if (loadMoreBtn) loadMoreBtn.classList.add('hidden');
+								if (noMoreTips) noMoreTips.classList.remove('hidden');
 							}
-						});
+						}
 					});
 				</script>
 			</div>
