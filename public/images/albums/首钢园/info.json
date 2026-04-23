@@ -1,0 +1,67 @@
+{
+	"mode": "external",
+	"title": "首钢园",
+	"description": "城市街头的生活瞬间",
+	"date": "2025-07-12",
+	"location": "北京首钢园",
+	"tags": ["街头", "摄影", "城市"],
+	"layout": "masonry",
+	"columns": 3,
+	"cover": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/%E9%A6%96%E9%92%A2%E5%9B%AD-6.jpg",
+	"photos": [
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/%E9%A6%96%E9%92%A2%E5%9B%AD-6.jpg",
+			"alt": "首钢园",
+			"title": "首钢园风景",
+			"tags": ["首钢园", "风景"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/%E9%A6%96%E9%92%A2%E5%9B%AD-7.jpg",
+			"alt": "首钢园",
+			"title": "首钢园风景",
+			"tags": ["首钢园", "风景"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/%E9%A6%96%E9%92%A2%E5%9B%AD-8.jpg",
+			"alt": "首钢园",
+			"title": "首钢园风景",
+			"tags": ["首钢园", "风景"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/%E9%A6%96%E9%92%A2%E5%9B%AD-9.jpg",
+			"alt": "首钢园",
+			"title": "首钢园风景",
+			"tags": ["首钢园", "风景"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/%E9%A6%96%E9%92%A2%E5%9B%AD-10.jpg",
+			"alt": "首钢园",
+			"title": "首钢园风景",
+			"tags": ["首钢园", "风景"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/%E9%A6%96%E9%92%A2%E5%9B%AD-11.jpg",
+			"alt": "首钢园",
+			"title": "首钢园风景",
+			"tags": ["首钢园", "风景"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/%E9%A6%96%E9%92%A2%E5%9B%AD-12.jpg",
+			"alt": "首钢园",
+			"title": "首钢园风景",
+			"tags": ["首钢园", "风景"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/%E9%A6%96%E9%92%A2%E5%9B%AD-13.jpg",
+			"alt": "首钢园",
+			"title": "首钢园风景",
+			"tags": ["首钢园", "风景"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/%E9%A6%96%E9%92%A2%E5%9B%AD-14.jpg",
+			"alt": "首钢园",
+			"title": "首钢园风景",
+			"tags": ["首钢园", "风景"]
+		}
+	]
+}

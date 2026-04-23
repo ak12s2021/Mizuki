@@ -1,0 +1,73 @@
+{
+	"mode": "external",
+	"title": "bjut2026.4",
+	"description": "摄影记录",
+	"date": "2026-04-22",
+	"location": "北京工业大学",
+	"tags": ["摄影", "校园", "风景"],
+	"layout": "masonry",
+	"columns": 3,
+	"cover": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/bjut422-103.jpg",
+	"photos": [
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/bjut422-103.jpg",
+			"alt": "bjut",
+			"title": "bjut",
+			"tags": ["bjut", "校园"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/bjut422-112.jpg",
+			"alt": "bjut",
+			"title": "bjut",
+			"tags": ["bjut", "校园"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/bjut422-115.jpg",
+			"alt": "bjut",
+			"title": "bjut",
+			"tags": ["bjut", "校园"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/bjut422-159.jpg",
+			"alt": "bjut",
+			"title": "bjut",
+			"tags": ["bjut", "校园"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/bjut422-19.jpg",
+			"alt": "bjut",
+			"title": "bjut",
+			"tags": ["bjut", "校园"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/bjut422-23.jpg",
+			"alt": "bjut",
+			"title": "bjut",
+			"tags": ["bjut", "校园"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/bjut422-38.jpg",
+			"alt": "bjut",
+			"title": "bjut",
+			"tags": ["bjut", "校园"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/bjut422-55.jpg",
+			"alt": "bjut",
+			"title": "bjut",
+			"tags": ["bjut", "校园"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/bjut422-94.jpg",
+			"alt": "bjut",
+			"title": "bjut",
+			"tags": ["bjut", "校园"]
+		},
+		{
+			"src": "https://cbt567.oss-rg-china-mainland.aliyuncs.com/img/bjut422-98.jpg",
+			"alt": "bjut",
+			"title": "bjut",
+			"tags": ["bjut", "校园"]
+		}
+	]
+}
