@@ -26,6 +26,16 @@ export const devicesData: DeviceCategory = {
 			link: "https://www.vivo.com.cn/vivo/iqoo10/",
 		},
 	],
+	iPhoneSE_3: [
+		{
+			name: "iPhone SE 3",
+			image: "https://cdsassets.apple.com/live/SZLF0YNV/images/sp/111866_sp867-iphone-se-3gen.png",
+			specs: "Black / 128G",
+			description:
+				"最后一代LCD屏幕和touch ID",
+			link: "https://support.apple.com/zh-cn/111866",			
+		},
+	],
 	MacBookAir_M1: [
 		{
 			name: "MacBook Air (M1, 2020)",

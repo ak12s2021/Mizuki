@@ -16,7 +16,11 @@ export const getStaticPaths = (async ({ paginate }) => {
 	const allBlogPosts = await getSortedPosts();
 	// 初始化文章 ID 映射（用于 permalink 功能）
 	initPostIdMap(allBlogPosts);
-	return paginate(allBlogPosts, { pageSize: PAGE_SIZE });
+	
+	// 在主页隐藏“笔记”分类的文章
+	const filteredPosts = allBlogPosts.filter(post => post.data.category !== '笔记');
+	
+	return paginate(filteredPosts, { pageSize: PAGE_SIZE });
 }) satisfies GetStaticPaths;
 // https://github.com/withastro/astro/issues/6507#issuecomment-1489916992
 

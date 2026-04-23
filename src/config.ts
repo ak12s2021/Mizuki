@@ -9,6 +9,8 @@
 	NavBarConfig,
 	PermalinkConfig,
 	ProfileConfig,
+	RandomPostsConfig,
+	RelatedPostsConfig,
 	SakuraConfig,
 	ShareConfig,
 	SidebarLayoutConfig,
@@ -184,8 +186,10 @@ export const siteConfig: SiteConfig = {
 	},
 	toc: {
 		enable: true, // 启用目录功能
-		mode: "sidebar", // 目录显示模式："float" 悬浮按钮模式，"sidebar" 侧边栏模式
-		depth: 2, // 目录深度，1-6，1 表示只显示 h1 标题，2 表示显示 h1 和 h2 标题，依此类推
+		mobileTop: true, // 手机端顶部 TOC 按钮
+		desktopSidebar: true, // 电脑端右侧边栏 TOC
+		floating: true, // 悬浮 TOC 按钮
+		depth: 2, // 目录深度，1-3，1 表示只显示 h1 标题，2 表示显示 h1 和 h2 标题，依此类推
 		useJapaneseBadge: true, // 使用日语假名标记（あいうえお...）代替数字，开启后会将 1、2、3... 改为 あ、い、う...
 	},
 	showCoverInContent: true, // 在文章内容页显示文章封面
@@ -264,13 +268,13 @@ export const navBarConfig: NavBarConfig = {
 					name: "GitHub",
 					url: "https://github.com/ak12s2021",
 					external: true,
-					icon: "fa6-brands:github",
+					icon: "fa7-brands:github",
 				},
 				{
 					name: "Bilibili",
 					url: "https://space.bilibili.com/269509778",
 					external: true,
-					icon: "fa6-brands:bilibili",
+					icon: "fa7-brands:bilibili",
 				},
 				{
 					name: "Gitee",
@@ -361,12 +365,12 @@ export const profileConfig: ProfileConfig = {
 	links: [
 		{
 			name: "Bilibli",
-			icon: "fa6-brands:bilibili",
+			icon: "fa7-brands:bilibili",
 			url: "https://space.bilibili.com/269509778",
 		},
 		{
 			name: "GitHub",
-			icon: "fa6-brands:github",
+			icon: "fa7-brands:github",
 			url: "https://github.com/ak12s2021",
 		},
 	],
@@ -438,6 +442,7 @@ export const announcementConfig: AnnouncementConfig = {
 
 export const musicPlayerConfig: MusicPlayerConfig = {
 	enable: true, // 启用音乐播放器功能
+	showFloatingPlayer: true, // 是否显示悬浮播放器 UI
 	mode: "meting", // 音乐播放器模式，可选 "local" 或 "meting"
 	meting_api:
 		"https://www.bilibili.uno/api?server=:server&type=:type&id=:id&auth=:auth&r=:r", // Meting API 地址
@@ -460,150 +465,80 @@ export const footerConfig: FooterConfig = {
  * sidebar: 控制组件所在的侧边栏（left 或 right）。注意：移动端通常不显示右侧栏内容。若组件设置在 right，请确保 layout.position 为 "both"。
  */
 export const sidebarLayoutConfig: SidebarLayoutConfig = {
-	// 侧边栏位置：单侧(unilateral)或双侧(both)
-	position: "both",
-
-	// 侧边栏组件配置列表
-	components: [
+	properties: [
 		{
-			// 组件类型：用户资料组件
 			type: "profile",
-			// 是否启用该组件
-			enable: true,
-			// 组件显示顺序（数字越小越靠前）
-			order: 1,
-			// 组件位置："top" 表示固定在顶部
 			position: "top",
-			// 所在侧边栏
-			sidebar: "left",
-			// CSS 类名，用于应用样式和动画
 			class: "onload-animation",
-			// 动画延迟时间（毫秒），用于错开动画效果
 			animationDelay: 0,
 		},
 		{
-			// 组件类型：公告组件
 			type: "announcement",
-			// 是否启用该组件（现在通过统一配置控制）
-			enable: true,
-			// 组件显示顺序
-			order: 2,
-			// 组件位置："top" 表示固定在顶部
 			position: "top",
-			// 所在侧边栏
-			sidebar: "left",
-			// CSS 类名
 			class: "onload-animation",
-			// 动画延迟时间
 			animationDelay: 50,
 		},
 		{
-			// 组件类型：分类组件
-			type: "categories",
-			// 是否启用该组件
-			enable: true,
-			// 组件显示顺序
-			order: 3,
-			// 组件位置："sticky" 表示粘性定位，可滚动
+			type: "music-sidebar",
 			position: "sticky",
-			// 所在侧边栏
-			sidebar: "left",
-			// CSS 类名
 			class: "onload-animation",
-			// 动画延迟时间
+			animationDelay: 100,
+		},
+		{
+			type: "categories",
+			position: "sticky",
+			class: "onload-animation",
 			animationDelay: 150,
-			// 响应式配置
 			responsive: {
-				// 折叠阈值：当分类数量超过5个时自动折叠
 				collapseThreshold: 5,
 			},
 		},
 		{
-			// 组件类型：标签组件
 			type: "tags",
-			// 是否启用该组件
-			enable: true,
-			// 组件显示顺序
-			order: 5,
-			// 组件位置："sticky" 表示粘性定位
 			position: "top",
-			// 所在侧边栏
-			sidebar: "left",
-			// CSS 类名
 			class: "onload-animation",
-			// 动画延迟时间
 			animationDelay: 250,
-			// 响应式配置
 			responsive: {
-				// 折叠阈值：当标签数量超过20个时自动折叠
 				collapseThreshold: 20,
 			},
 		},
 		{
-			// 组件类型：站点统计组件
-			type: "site-stats",
-			// 是否启用该组件
-			enable: true,
-			// 组件显示顺序
-			order: 6,
-			// 组件位置
-			position: "top",
-			// 所在侧边栏
-			sidebar: "left",
-			// CSS 类名
+			type: "card-toc",
+			position: "sticky",
 			class: "onload-animation",
-			// 动画延迟时间
 			animationDelay: 200,
 		},
 		{
-			// 组件类型：日历组件(移动端不显示)
-			type: "calendar",
-			// 是否启用该组件
-			enable: true,
-			// 组件显示顺序
-			order: 7,
-			// 组件位置
+			type: "site-stats",
 			position: "top",
-			// 所在侧边栏
-			sidebar: "left",
-			// CSS 类名
 			class: "onload-animation",
-			// 动画延迟时间
+			animationDelay: 200,
+		},
+		{
+			type: "calendar",
+			position: "top",
+			class: "onload-animation",
 			animationDelay: 250,
 		},
 	],
 
-	// 默认动画配置
+	components: {
+		left: ["profile", "announcement", "tags", "card-toc"],
+		right: ["site-stats", "calendar", "categories", "music-sidebar"],
+		drawer: ["profile", "announcement", "music-sidebar", "categories", "tags"],
+	},
+
 	defaultAnimation: {
-		// 是否启用默认动画
 		enable: true,
-		// 基础延迟时间（毫秒）
 		baseDelay: 0,
-		// 递增延迟时间（毫秒），每个组件依次增加的延迟
 		increment: 50,
 	},
 
-	// 响应式布局配置
 	responsive: {
-		// 断点配置（像素值）
 		breakpoints: {
-			// 移动端断点：屏幕宽度小于768px
 			mobile: 768,
-			// 平板端断点：屏幕宽度小于1280px
 			tablet: 1280,
-			// 桌面端断点：屏幕宽度大于等于1280px
 			desktop: 1280,
-		},
-		// 不同设备的布局模式
-		// hidden: 隐藏侧边栏
-		// sidebar: 显示侧边栏
-		layout: {
-			// 移动端：显示侧边栏(抽屉模式)
-			mobile: "sidebar",
-			// 平板端：显示侧边栏(抽屉模式)
-			tablet: "sidebar",
-			// 桌面端：显示侧边栏
-			desktop: "sidebar",
 		},
 	},
 };
@@ -669,7 +604,21 @@ export const widgetConfigs = {
 	fullscreenWallpaper: fullscreenWallpaperConfig,
 	pio: pioConfig, // 添加 pio 配置
 	share: shareConfig, // 添加分享配置
+	relatedPosts: { enable: true, maxCount: 5 },
+	randomPosts: { enable: true, maxCount: 5 },
 } as const;
+
+// 相关文章配置
+export const relatedPostsConfig: RelatedPostsConfig = {
+	enable: true,
+	maxCount: 5,
+};
+
+// 随机文章配置
+export const randomPostsConfig: RandomPostsConfig = {
+	enable: true,
+	maxCount: 5,
+};
 
 export const umamiConfig = {
 	enabled: false, // 是否显示Umami统计

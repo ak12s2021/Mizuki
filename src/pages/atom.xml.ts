@@ -23,9 +23,9 @@ export async function GET(context: APIContext) {
 	}
 
 	// Use the same ordering as site listing (pinned first, then by published desc)
-	// 过滤掉加密文章和草稿文章
+	// 过滤掉加密文章、草稿文章以及“笔记”分类
 	const posts = (await getSortedPosts()).filter(
-		(post) => !post.data.encrypted && post.data.draft !== true,
+		(post) => !post.data.encrypted && post.data.draft !== true && post.data.category !== '笔记',
 	);
 
 	// 初始化文章 ID 映射（用于 permalink 功能）
