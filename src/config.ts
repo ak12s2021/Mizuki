@@ -1,4 +1,4 @@
-﻿import type {
+import type {
 	AnnouncementConfig,
 	CommentConfig,
 	ExpressiveCodeConfig,
@@ -309,6 +309,11 @@ export const navBarConfig: NavBarConfig = {
 					url: "devices/",
 					icon: "material-symbols:devices",
 					external: false,
+				},
+				{
+					name: "Dreams",
+					url: "/dreams/",
+					icon: "material-symbols:bedtime",
 				},
 			],
 		},

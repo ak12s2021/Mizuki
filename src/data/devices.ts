@@ -16,14 +16,13 @@ export type DeviceCategory = {
 };
 
 export const devicesData: DeviceCategory = {
-	IQOO10: [
+	X300: [
 		{
-			name: "IQOO 10",
-			image: "https://wwwstatic.vivo.com.cn/vivoportal/files/image/detail/20220725/274c839032f05fc9a86be8e7a20b62f6.png",
-			specs: "Black / 12G + 256G",
-			description:
-				"第一代骁龙 8+ 120w soc",
-			link: "https://www.vivo.com.cn/vivo/iqoo10/",
+			name: "X300",
+			image: "https://wwwstatic.vivo.com.cn/vivoportal/files/image/detail/20260120/b5062465cd1bb3a5f1be6be1cd8991b8.png",
+			specs: "holo pink /16G + 512G",
+			description: "天玑9500",
+			link: "https://www.vivo.com/eu/products/x300",
 		},
 	],
 	iPhoneSE_3: [
@@ -31,9 +30,8 @@ export const devicesData: DeviceCategory = {
 			name: "iPhone SE 3",
 			image: "https://cdsassets.apple.com/live/SZLF0YNV/images/sp/111866_sp867-iphone-se-3gen.png",
 			specs: "Black / 128G",
-			description:
-				"最后一代LCD屏幕和touch ID",
-			link: "https://support.apple.com/zh-cn/111866",			
+			description: "最后一代LCD屏幕和touch ID",
+			link: "https://support.apple.com/zh-cn/111866",
 		},
 	],
 	MacBookAir_M1: [
@@ -41,8 +39,7 @@ export const devicesData: DeviceCategory = {
 			name: "MacBook Air (M1, 2020)",
 			image: "https://cdsassets.apple.com/live/SZLF0YNV/images/sp/111883_macbookair.png",
 			specs: "Silver / 16G + 256G",
-			description:
-				"",
+			description: "",
 			link: "https://support.apple.com/en-us/111883",
 		},
 	],
@@ -51,8 +48,7 @@ export const devicesData: DeviceCategory = {
 			name: "天选4 锐龙版",
 			image: "https://dlcdnwebimgs.asus.com.cn/gain/735ac56d-5d65-4a36-a7f3-aa208ba2d075/w800/fwebp",
 			specs: "40G + 4T",
-			description:
-				"",
+			description: "",
 			link: "https://www.asus.com.cn/laptops/for-gaming/tuf-gaming/asus-tuf-gaming-a15-2023/",
 		},
 	],

@@ -1,0 +1,51 @@
+---
+import Pagination from "@components/control/Pagination.astro";
+import CategoryBar from "@components/features/posts/CategoryBar.astro";
+import PostPage from "@components/features/posts/PostPage.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import type { GetStaticPaths } from "astro";
+
+import { siteConfig } from "../../config";
+import { PAGE_SIZE } from "../../constants/constants";
+import { getSortedPosts } from "../../utils/content-utils";
+import { initPostIdMap } from "../../utils/permalink-utils";
+
+const showCategoryBar = false; // We probably don't need a category bar here since it's just for Dreams
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const allBlogPosts = await getSortedPosts();
+	// 初始化文章 ID 映射（用于 permalink 功能）
+	initPostIdMap(allBlogPosts);
+
+	// 仅保留"梦"标签的文章
+	const filteredPosts = allBlogPosts.filter((post) =>
+		post.data.tags?.includes("梦"),
+	);
+
+	return paginate(filteredPosts, { pageSize: PAGE_SIZE });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+
+const len = page.data.length;
+---
+
+<MainGridLayout title="梦境记录">
+	<div
+		class="mb-4 bg-[var(--card-bg)] rounded-[var(--radius-large)] p-6 text-center border border-[var(--line-divider)]"
+	>
+		<h1 class="text-2xl font-bold mb-2 text-[var(--primary)]">
+			云雾缭绕的梦境
+		</h1>
+		<p class="text-[var(--text-muted)]">
+			这里记录了我在梦中经历的光怪陆离的世界...
+		</p>
+	</div>
+
+	<PostPage page={page} />
+	<Pagination
+		class="mx-auto onload-animation"
+		page={page}
+		style={`animation-delay: calc(var(--content-delay) + ${len * 50}ms)`}
+	/>
+</MainGridLayout>
