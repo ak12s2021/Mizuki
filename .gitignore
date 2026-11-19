@@ -23,6 +23,11 @@ pnpm-debug.log*
 /content/
 *.backup
 
+# Personal config overrides are tracked in this blog repository.
+
+# output of `pnpm export-config`
+/overrides-export/
+
 # Large zip files
 *.zip
 
@@ -53,3 +58,9 @@ src/data/bilibili-data.json
 
 # Lighthouse CI
 .lighthouseci/
+
+# Live2D editor source files
+*.psd
+*.psd~
+*.cmo3
+*.vtube.json

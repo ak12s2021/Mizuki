@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from "../config";
+import { formatRelativeTime } from "../utils/timeFormat";
 import { getDiaryList, getDiaryStats } from "../data/diary";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
@@ -14,30 +15,9 @@ if (!siteConfig.featurePages.diary) {
 const moments = getDiaryList();
 const diaryStats = getDiaryStats();
 
-// 时间格式化函数
+// ISO timestamps already identify an instant; use the upstream time formatter.
 function formatTime(dateString: string): string {
-	var TG = 8;
-	if (siteConfig.timeZone >= -12 && siteConfig.timeZone <= 12)
-		TG = siteConfig.timeZone;
-	const timeGap = TG;
-
-	// const lang = siteConfig.lang;
-	const now = new Date();
-	const date = new Date(dateString);
-	const diffInMinutes = Math.floor(
-		(now.getTime() + timeGap * 60 * 60 * 1000 - date.getTime()) / (1000 * 60),
-	);
-
-	if (diffInMinutes < 60) {
-		return `${diffInMinutes}${i18n(I18nKey.diaryMinutesAgo)}`;
-	}
-	if (diffInMinutes < 1440) {
-		// 24小时
-		const hours = Math.floor(diffInMinutes / 60);
-		return `${hours}${i18n(I18nKey.diaryHoursAgo)}`;
-	}
-	const days = Math.floor(diffInMinutes / 1440);
-	return `${days}${i18n(I18nKey.diaryDaysAgo)}`;
+	return formatRelativeTime(dateString, i18n(I18nKey.diaryMinutesAgo), i18n(I18nKey.diaryHoursAgo), i18n(I18nKey.diaryDaysAgo));
 }
 
 // 处理日记内容：识别URL、iframe、图片等

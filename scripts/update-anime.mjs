@@ -1,34 +1,16 @@
 import { spawn } from "child_process";
-import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { matchSiteConfig } from "./read-site-config.mjs";
 
-const CONFIG_PATH = path.join(
-	path.dirname(fileURLToPath(import.meta.url)),
-	"../src/config.ts",
-);
-
-async function getAnimeModeFromConfig() {
-	try {
-		const configContent = await fs.readFile(CONFIG_PATH, "utf-8");
-		const match = configContent.match(
-			/anime:\s*\{[\s\S]*?mode:\s*["']([^"']+)["']/,
-		);
-
-		if (match && match[1]) {
-			return match[1];
-		}
-		return "bangumi";
-	} catch (error) {
-		return "bangumi";
-	}
+function getAnimeModeFromConfig() {
+	return matchSiteConfig("anime", /mode:\s*["']([^"']+)["']/) || "bangumi";
 }
 
 function runScript(scriptPath) {
 	return new Promise((resolve, reject) => {
-		const script = spawn("node", [scriptPath], {
+		const script = spawn(process.execPath, [scriptPath], {
 			stdio: "inherit",
-			shell: true,
 		});
 
 		script.on("close", (code) => {
@@ -46,7 +28,7 @@ function runScript(scriptPath) {
 }
 
 async function main() {
-	const mode = await getAnimeModeFromConfig();
+	const mode = getAnimeModeFromConfig();
 	const scriptsDir = path.dirname(fileURLToPath(import.meta.url));
 
 	if (mode === "bilibili") {
