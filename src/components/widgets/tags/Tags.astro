@@ -6,6 +6,7 @@ import { getTagUrl } from "../../../utils/url-utils";
 import { widgetManager } from "../../../utils/widget-manager";
 import ButtonTag from "../../control/ButtonTag.astro";
 import WidgetLayout from "../common/WidgetLayout.astro";
+import DiaryEntry from "../diary/DiaryEntry.astro";
 
 const tags = await getTagList();
 
@@ -26,6 +27,8 @@ interface Props {
 const className = Astro.props.class;
 const style = Astro.props.style;
 ---
+
+<DiaryEntry class={className} style={style} />
 
 <WidgetLayout
 	name={i18n(I18nKey.tags)}

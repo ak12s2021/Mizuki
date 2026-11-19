@@ -1,0 +1,43 @@
+---
+import { Icon } from "astro-icon/components";
+
+import { siteConfig } from "../../../config";
+import I18nKey from "../../../i18n/i18nKey";
+import { i18n } from "../../../i18n/translation";
+import { pathsEqual, url } from "../../../utils/url-utils";
+import WidgetLayout from "../common/WidgetLayout.astro";
+
+interface Props {
+	class?: string;
+	style?: string;
+}
+
+const { class: className, style } = Astro.props;
+const showEntry =
+	siteConfig.featurePages.diary && pathsEqual(Astro.url.pathname, url("/"));
+---
+
+{
+	showEntry && (
+		<WidgetLayout
+			name={i18n(I18nKey.diary)}
+			id="diary-entry"
+			class={className}
+			style={style}
+		>
+			<p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed mb-3">
+				记录生活里的片段与心情。
+			</p>
+			<a
+				href={url("/diary/")}
+				class="btn-regular rounded-lg px-3 py-2 flex items-center justify-between gap-3 font-medium"
+			>
+				<span class="flex items-center gap-2">
+					<Icon name="material-symbols:book-outline" class="text-xl" />
+					查看日记
+				</span>
+				<Icon name="material-symbols:arrow-forward" class="text-xl" />
+			</a>
+		</WidgetLayout>
+	)
+}
